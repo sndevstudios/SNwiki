@@ -89,6 +89,93 @@ body {
 }
 .sidebar-logo p { margin: 4px 0 0; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 1px; }
 
+/* PLAY BUTTON (SIDEBAR) */
+.play-btn-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 20px 15px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #00b894, #00cec9, #6c5ce7);
+    background-size: 200% 200%;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4), 0 0 30px rgba(108, 92, 231, 0.3);
+    transition: all 0.3s ease;
+    animation: playBtnGradient 4s ease infinite;
+    position: relative;
+    overflow: hidden;
+}
+.play-btn-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s ease;
+}
+.play-btn-sidebar:hover::before { left: 100%; }
+.play-btn-sidebar:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 184, 148, 0.6), 0 0 50px rgba(108, 92, 231, 0.5);
+}
+.play-btn-sidebar:active { transform: translateY(0) scale(0.98); }
+@keyframes playBtnGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* PLAY BUTTON (HERO) */
+.play-btn-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, #00b894 0%, #00cec9 40%, #6c5ce7 100%);
+    background-size: 200% 200%;
+    color: #fff;
+    font-weight: 900;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(0, 184, 148, 0.5), 0 0 40px rgba(108, 92, 231, 0.35);
+    transition: all 0.3s ease;
+    animation: playBtnGradient 4s ease infinite, playBtnPulse 2.5s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.play-btn-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: left 0.7s ease;
+}
+.play-btn-hero:hover::before { left: 100%; }
+.play-btn-hero:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(0, 184, 148, 0.7), 0 0 60px rgba(108, 92, 231, 0.6);
+}
+.play-btn-hero:active { transform: translateY(0) scale(0.98); }
+@keyframes playBtnPulse {
+    0%, 100% { box-shadow: 0 8px 28px rgba(0, 184, 148, 0.5), 0 0 40px rgba(108, 92, 231, 0.35); }
+    50% { box-shadow: 0 8px 32px rgba(0, 184, 148, 0.75), 0 0 55px rgba(108, 92, 231, 0.55); }
+}
+
 .nav-section { padding: 10px 20px; }
 .nav-section h3 {
     font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
@@ -574,6 +661,7 @@ body {
     .wiki-hero h1 { font-size: 2rem; }
     .wiki-hero { padding: 22px; }
     .wiki-section h2 { font-size: 1.4rem; }
+    .play-btn-hero { padding: 14px 28px; font-size: 1rem; }
 }
 
 footer.wiki-footer {
@@ -605,6 +693,10 @@ footer.wiki-footer {
             <h1>SNrng</h1>
             <p>WIKI • v1.9.0 PORTABLE</p>
         </div>
+
+        <!-- PLAY BUTTON (SIDEBAR) -->
+        <a class="play-btn-sidebar" href="https://sndevstudios.github.io/SNrng/" target="_blank" rel="noopener">▶️ Грати!</a>
+
         <div class="search-box">
             <input type="text" id="wikiSearch" placeholder="🔍 Пошук по вікі..." oninput="performSearch(this.value)">
         </div>
@@ -640,6 +732,9 @@ footer.wiki-footer {
                 <span class="wiki-badge">🎲 47 персонажів</span>
                 <span class="wiki-badge">🏆 10 досягнень</span>
             </div>
+            <!-- PLAY BUTTON (HERO) -->
+            <br>
+            <a class="play-btn-hero" href="https://sndevstudios.github.io/SNrng/" target="_blank" rel="noopener">▶️ ГРАТИ!</a>
         </div>
 
         <!-- RARITIES -->
