@@ -334,6 +334,84 @@ body {
 .ach-wiki-desc { font-size: 0.78rem; color: var(--text-dim); }
 .ach-wiki-reward { font-size: 0.75rem; color: #ffd700; margin-top: 3px; font-weight: 700; }
 
+/* ===== FAQ ===== */
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+.faq-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.faq-item:hover { border-color: var(--accent-color); }
+.faq-item.open { border-color: var(--accent-color); box-shadow: 0 6px 20px rgba(108, 92, 231, 0.25); }
+.faq-question {
+    display: flex; align-items: center; gap: 14px;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 800;
+    font-size: 1rem;
+    transition: background 0.2s;
+    position: relative;
+}
+.faq-question:hover { background: rgba(108, 92, 231, 0.08); }
+.faq-question .faq-icon {
+    font-size: 1.3rem;
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--accent-color), #8e44ad);
+    border-radius: 10px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(108, 92, 231, 0.4);
+}
+.faq-question .faq-text { flex: 1; }
+.faq-question .faq-arrow {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 22px 0 70px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+.faq-item.open .faq-answer {
+    max-height: 600px;
+    padding: 0 22px 20px 70px;
+}
+.faq-answer p { margin: 0 0 10px; }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer strong { color: var(--text-color); }
+.faq-answer .badge-yes {
+    display: inline-block;
+    background: rgba(0, 184, 148, 0.2);
+    color: #00b894;
+    border: 1px solid rgba(0, 184, 148, 0.5);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    margin: 0 2px;
+}
+.faq-answer .badge-no {
+    display: inline-block;
+    background: rgba(214, 48, 49, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(214, 48, 49, 0.5);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    margin: 0 2px;
+}
+
 .hidden { display: none !important; }
 
 /* =====================================================
@@ -662,6 +740,9 @@ body {
     .wiki-hero { padding: 22px; }
     .wiki-section h2 { font-size: 1.4rem; }
     .play-btn-hero { padding: 14px 28px; font-size: 1rem; }
+    .faq-question { padding: 14px 16px; font-size: 0.9rem; }
+    .faq-answer { padding-left: 16px; padding-right: 16px; }
+    .faq-item.open .faq-answer { padding-left: 16px; padding-right: 16px; }
 }
 
 footer.wiki-footer {
@@ -694,7 +775,6 @@ footer.wiki-footer {
             <p>WIKI • v1.9.0 PORTABLE</p>
         </div>
 
-        <!-- PLAY BUTTON (SIDEBAR) -->
         <a class="play-btn-sidebar" href="https://sndevstudios.github.io/SNrng/" target="_blank" rel="noopener">▶️ Грати!</a>
 
         <div class="search-box">
@@ -712,6 +792,7 @@ footer.wiki-footer {
             <a class="nav-link" onclick="scrollToSection('promo')">🎁 Промокоди</a>
             <a class="nav-link" onclick="scrollToSection('achievements')">🏆 Досягнення</a>
             <a class="nav-link" onclick="scrollToSection('tips')">💡 Поради</a>
+            <a class="nav-link" onclick="scrollToSection('faq')">❓ Часті питання</a>
         </nav>
         <nav class="nav-section">
             <h3>Швидкі посилання</h3>
@@ -732,7 +813,6 @@ footer.wiki-footer {
                 <span class="wiki-badge">🎲 47 персонажів</span>
                 <span class="wiki-badge">🏆 10 досягнень</span>
             </div>
-            <!-- PLAY BUTTON (HERO) -->
             <br>
             <a class="play-btn-hero" href="https://sndevstudios.github.io/SNrng/" target="_blank" rel="noopener">▶️ ГРАТИ!</a>
         </div>
@@ -1177,6 +1257,108 @@ footer.wiki-footer {
                 </div>
             </div>
         </section>
+
+        <!-- =====================================================
+             ===== FAQ SECTION =====
+             ===================================================== -->
+        <section class="wiki-section" id="faq">
+            <h2>❓ Часті питання (FAQ)</h2>
+            <p style="color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;">
+                Відповіді на найпоширеніші запитання про гру SNrng. Натисніть на питання, щоб розгорнути відповідь.
+            </p>
+
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">👶</span>
+                        <span class="faq-text">З якого віку рекомендується гра?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Гра рекомендується <strong>з 5 років</strong>. У грі є деякі елементи, які підіймають віковий рейтинг, але вони показані як візуальна частина гри (анімації, ефекти), а не як контент, що може зашкодити.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">🔊</span>
+                        <span class="faq-text">Чи є в грі звуки та музика? Чи можна їх вимкнути?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>У грі є <strong>звукові ефекти (SFX)</strong>, але <strong>музики немає</strong> — розробник не займається музичним супроводом. У налаштуваннях можна <span class="badge-yes">вимкнути</span> звуки та вібрацію.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">🌐</span>
+                        <span class="faq-text">Чи потрібен інтернет для гри?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><span class="badge-yes">Так</span>, інтернет потрібен, оскільки гра ще не вийшла як окремий додаток (вона працює в браузері). Також інтернет потрібен для більш точного автоматичного збереження прогресу.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">📱</span>
+                        <span class="faq-text">На яких пристроях можна грати?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Поки гра працює в браузері, вона <strong>доступна для всіх пристроїв</strong>: ПК, ноутбуки, телефони, планшети. Головне — мати браузер та інтернет.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">💾</span>
+                        <span class="faq-text">Чи є збереження прогресу і як воно працює?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><span class="badge-yes">Так</span>, збереження є. Прогрес зберігається через <strong>cookie-файли</strong> в браузері (а також дублюється в localStorage). Це означає, що при очищенні cookie або зміні браузера/пристрою прогрес може бути втрачено — використовуйте функцію Експорт/Імпорт у налаштуваннях для переносу.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">🚀</span>
+                        <span class="faq-text">Коли вийде оновлення 2.0.0 (RNGworlds)?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Оновлення <strong>2.0.0</strong> планується в <strong>листопаді або грудні</strong>. Команда дуже старанно працює над грою, щоб зробити реліз якісним. Точнішої дати поки немає — очікуйте анонсів.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">🎮</span>
+                        <span class="faq-text">Чи буде мультиплеєр?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><span class="badge-no">Ні</span>, мультиплеєра <strong>не буде</strong>. Розробники вважають, що мультиплеєр неможливо круто реалізувати в RNG-грі — це б суперечило самій концепції гри.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-icon">✨</span>
+                        <span class="faq-text">Чи будуть нові рідкості та персонажі?</span>
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p><span class="badge-yes">Так!</span> У новому оновленні 2.0.0 будуть <strong>нові рідкості</strong>, а також планується <strong>15+ нових персонажів</strong>. Команда обіцяє багато цікавого — очікуйте!</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </main>
 </div>
 
@@ -1310,6 +1492,14 @@ function performSearch(query) {
     } else {
         document.querySelectorAll('.wiki-section').forEach(sec => sec.style.opacity = '1');
     }
+}
+
+/* FAQ toggle */
+function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
 }
 
 window.addEventListener('scroll', () => {
